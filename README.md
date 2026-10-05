@@ -1,4 +1,4 @@
-# Student Task Management Applications
+# Student Task Management Application
 
 A simple task manager designed for students to add, manage, and keep track of their daily tasks.
 ---
