@@ -3,30 +3,93 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f4f7f5">
   <title>Student Task Manager</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <main class="container">
-    <h1>Student Task Manager</h1>
+  <div class="app-shell">
+    <header class="site-header">
+      <div class="brand" aria-label="Student Task Manager">
+        <span class="brand-mark" aria-hidden="true">S</span>
+        <span>Student<span class="brand-light">Task Manager</span></span>
+      </div>
+      <p class="header-note">A little progress, every day.</p>
+    </header>
 
-    <form id="taskForm" class="task-form">
-      <label for="taskTitle">Task Title</label>
-      <input type="text" id="taskTitle" placeholder="e.g. Finish Git assignment" required>
+    <main class="container">
+      <section class="welcome" aria-labelledby="pageTitle">
+        <p class="eyebrow">YOUR STUDY SPACE</p>
+        <h1 id="pageTitle">Make room for what matters.</h1>
+        <p class="intro">Keep your assignments and ideas organized, one task at a time.</p>
+      </section>
 
-      <label for="taskDescription">Description</label>
-      <textarea id="taskDescription" rows="3" placeholder="Short description of the task"></textarea>
+      <section class="composer panel" aria-labelledby="formHeading">
+        <div class="section-heading">
+          <span class="section-icon" aria-hidden="true">+</span>
+          <div>
+            <h2 id="formHeading">Add a task</h2>
+            <p>Capture what you need to get done.</p>
+          </div>
+        </div>
+        <form id="taskForm" class="task-form" novalidate>
+          <div class="field-group">
+            <label for="taskTitle">Task title <span aria-hidden="true">*</span></label>
+            <input type="text" id="taskTitle" name="title" maxlength="160" placeholder="e.g. Finish biology assignment" required aria-required="true" aria-describedby="titleError">
+            <p id="titleError" class="field-error" aria-live="polite"></p>
+          </div>
+          <div class="field-group">
+            <label for="taskDescription">Description <span class="optional">(optional)</span></label>
+            <textarea id="taskDescription" name="description" rows="3" maxlength="600" placeholder="Add a few helpful details..."></textarea>
+          </div>
+          <div class="form-actions">
+            <span class="form-hint">Press Enter in the title field to add it.</span>
+            <button type="submit" id="addBtn" class="button button-primary">
+              <span aria-hidden="true">+</span> Add task
+            </button>
+          </div>
+        </form>
+      </section>
 
-      <button type="submit" id="addBtn" class="btn btn-primary">Add Task</button>
-    </form>
+      <section class="task-section panel" aria-labelledby="tasksHeading">
+        <div class="list-heading">
+          <div>
+            <p class="eyebrow">YOUR WORKLOAD</p>
+            <h2 id="tasksHeading">My tasks</h2>
+          </div>
+          <span id="resultCount" class="result-count" aria-live="polite"></span>
+        </div>
 
-    <section class="task-section">
-      <h2>My Tasks</h2>
-      <ul id="taskList" class="task-list"></ul>
-      <p id="emptyMessage" class="empty-message">No tasks yet. Add your first task above.</p>
-    </section>
-  </main>
+        <div class="task-tools">
+          <div class="search-field">
+            <label class="visually-hidden" for="taskSearch">Search tasks</label>
+            <span class="search-icon" aria-hidden="true"></span>
+            <input type="search" id="taskSearch" placeholder="Search your tasks..." autocomplete="off">
+            <button type="button" id="clearSearch" class="clear-search" aria-label="Clear search" hidden>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="filter-group" role="group" aria-label="Filter tasks by status">
+            <button type="button" class="filter-button is-active" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="filter-button" data-filter="pending" aria-pressed="false">Pending</button>
+            <button type="button" class="filter-button" data-filter="completed" aria-pressed="false">Completed</button>
+          </div>
+        </div>
 
-  <script src="script.js"></script>
+        <ul id="taskList" class="task-list" aria-label="Tasks"></ul>
+        <div id="emptyMessage" class="empty-state" role="status" hidden>
+          <span class="empty-icon" aria-hidden="true">✓</span>
+          <h3 id="emptyHeading">Nothing here just yet</h3>
+          <p id="emptyDescription">Add a task above and it will show up here.</p>
+        </div>
+        <p id="storageStatus" class="storage-status" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Small steps add up. You’ve got this.</p>
+    </footer>
+  </div>
 </body>
 </html>
